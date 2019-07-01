@@ -1,0 +1,37 @@
+{
+    "name": "react_ssr",
+    "version": "1.0.0",
+    "description": "try react ssr by next.js",
+    "main": "index.js",
+    "scripts": {
+        "start": "next",
+        "build": "next build",
+        "prod": "NODE_ENV=production node server.js",
+        "export": "yarn build && next export"
+    },
+    "dependencies": {
+        "@zeit/next-less": "^1.0.1",
+        "express": "^4.17.1",
+        "less": "^3.9.0",
+        "next": "^8.1.0",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "react-redux": "^7.1.0",
+        "redux": "^4.0.1",
+        "redux-thunk": "^2.3.0"
+    },
+    "author": "jackyzm",
+    "license": "MIT",
+    "homepage": "https://github.com/Jackyzm/react_ssr",
+    "devDependencies": {
+        "babel-eslint": "^10.0.2",
+        "eslint": "^6.0.1",
+        "eslint-config-airbnb": "^17.1.0",
+        "eslint-loader": "^2.1.2",
+        "eslint-plugin-flowtype": "^3.11.1",
+        "eslint-plugin-import": "^2.18.0",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-react": "^7.14.2",
+        "redux-devtools-extension": "^2.13.8"
+    }
+}
