@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
+import { Button } from 'antd';
 import { increment } from '@/models/actions/example';
 import Head from '@/components/head';
 import Nav from '@/components/nav';
@@ -65,6 +66,7 @@ const Home = () => {
                 <button onClick={ () => setState(true) }>点我</button>
                 <p>{ count }</p>
                 <button onClick={ () => incrementAction() }>点我</button>
+                <Button type="primary">12321</Button>
             </div>
         </div>
     );

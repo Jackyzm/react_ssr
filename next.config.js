@@ -1,8 +1,23 @@
 const path = require('path');
-const withLess = require('@zeit/next-less');
+const antdLessLoader = require('./antd.config');
+const modifyVars = require('./static/theme');
 
-module.exports = withLess({
+if (typeof require !== 'undefined') {
+    require.extensions['.less'] = (file) => {}; // eslint-disable-line
+}
+
+module.exports = antdLessLoader({
+    compress: false,
+    distDir: 'dist',
     cssModules: true,
+    cssLoaderOptions: {
+        importLoaders: 1,
+        localIdentName: '[local]___[hash:base64:5]',
+    },
+    lessLoaderOptions: {
+        javascriptEnabled: true,
+        modifyVars
+    },
     webpack: (config) => {
         // Fixes npm packages that depend on `fs` module
         config.node = {
