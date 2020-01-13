@@ -1,8 +1,8 @@
 
-
 const cssLoaderConfig = require('@zeit/next-css/css-loader-config');
 
-module.exports = (nextConfig = {}) => Object.assign({}, nextConfig, {
+module.exports = (nextConfig = {}) => ({
+    ...nextConfig,
     webpack(config, options) {
         const { dev, isServer } = options;
         const {
@@ -11,6 +11,34 @@ module.exports = (nextConfig = {}) => Object.assign({}, nextConfig, {
             postcssLoaderOptions,
             lessLoaderOptions = {}
         } = nextConfig;
+
+        options.defaultLoaders.css = cssLoaderConfig(config, {
+            extensions: ['css'],
+            cssModules: false,
+            cssLoaderOptions,
+            postcssLoaderOptions,
+            dev,
+            isServer
+        });
+
+        config.module.rules.push({
+            test: /\.css$/,
+            exclude: /node_modules/,
+            use: options.defaultLoaders.css
+        });
+
+        // disable antd css module
+        config.module.rules.push({
+            test: /\.css$/,
+            include: /node_modules/,
+            use: cssLoaderConfig(config, {
+                extensions: ['css'],
+                cssModules: false,
+                cssLoaderOptions: {},
+                dev,
+                isServer
+            })
+        });
 
         options.defaultLoaders.less = cssLoaderConfig(config, {
             extensions: ['less'],
