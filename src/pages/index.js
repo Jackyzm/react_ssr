@@ -9,7 +9,7 @@ import Nav from '@/components/nav';
 import styles from './index.less';
 
 const Home = () => {
-    const count = useSelector(state => state.example.count);
+    const count = useSelector((state) => state.example.count);
 
     const [state, setState] = useState(false);
 

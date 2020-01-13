@@ -1,6 +1,6 @@
 const path = require('path');
 const antdLessLoader = require('./antd.config');
-const modifyVars = require('./static/theme');
+const modifyVars = require('./public/static/theme');
 
 if (typeof require !== 'undefined') {
     require.extensions['.less'] = (file) => {}; // eslint-disable-line
@@ -24,7 +24,7 @@ module.exports = antdLessLoader({
             fs: 'empty'
         };
 
-        config.resolve.alias['@'] = path.join(__dirname);
+        config.resolve.alias['@'] = path.join(__dirname, 'src');
 
         return config;
     }
