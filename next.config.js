@@ -1,4 +1,5 @@
 const path = require('path');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const antdLessLoader = require('./antd.config');
 const modifyVars = require('./src/theme');
 
@@ -7,7 +8,6 @@ if (typeof require !== 'undefined') {
 }
 
 module.exports = antdLessLoader({
-    compress: false,
     distDir: 'dist',
     cssModules: true,
     cssLoaderOptions: {
@@ -19,6 +19,11 @@ module.exports = antdLessLoader({
         modifyVars
     },
     webpack: (config, { isServer }) => {
+        // 压缩css
+        if (config.mode === 'production' && Array.isArray(config.optimization.minimizer)) {
+            config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+        }
+
         // Fixes npm packages that depend on `fs` module
         config.node = {
             fs: 'empty'
