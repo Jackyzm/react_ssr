@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const antdLessLoader = require('./antd.config');
 const modifyVars = require('./src/theme');
@@ -23,6 +24,13 @@ module.exports = antdLessLoader({
         if (config.mode === 'production' && Array.isArray(config.optimization.minimizer)) {
             config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
         }
+
+        // 将环境变量写入代码中
+        config.plugins.push(
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+            })
+        );
 
         // Fixes npm packages that depend on `fs` module
         config.node = {
